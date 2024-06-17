@@ -7,6 +7,9 @@ import WikibotMainView from './views/WikibotMainView.vue'
 </template>
 
 <style lang="scss">
+#app {
+  height: 100%;
+}
 * {
   padding: 0;
   margin: 0;

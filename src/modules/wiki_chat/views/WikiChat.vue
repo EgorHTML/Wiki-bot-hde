@@ -2,32 +2,49 @@
 <script setup>
 import { ref } from 'vue'
 import WikiChatEditor from '../components/WikiChatEditor.vue'
+import WikiChatMessage from '../components/WikiChatMessage.vue'
 
-const message = {
-  text: '',
-  sender: {
-    name: '',
-    id: 0,
-  },
-}
-
-const textarea = ref('')
+const messages = ref([])
 
 function submit() {
-  console.log('mes')
-  addMessage()
+  addMessage({
+    id: 1,
+    text: 'testovoe soobchenie',
+    sender: {
+      name: 'Egor',
+      id: 1,
+    },
+  })
 }
 
-function addMessage() {
+function addMessage(message) {
   console.log('mes')
+  messages.value = [...messages.value, message]
+  console.log(message, 'messages')
 }
 </script>
 
 <template>
   <div class="chat-detail">
-    <div class="messages"></div>
+    <div class="messages">
+      <WikiChatMessage
+        v-for="message in messages"
+        :key="message.id"
+        :message="message"
+      />
+    </div>
     <WikiChatEditor @submit="submit" />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.chat-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex: 1 1;
+}
+</style>

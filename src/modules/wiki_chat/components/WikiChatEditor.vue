@@ -1,15 +1,17 @@
 <script setup>
 import { Message } from '@element-plus/icons-vue'
-import { defineEmits } from 'vue'
+import { defineEmits, ref } from 'vue'
 
 const emit = defineEmits(['submit'])
+
+const textarea = ref('')
 </script>
 
 <template>
   <div class="editor">
     <el-input
       v-model="textarea"
-      maxlength="30"
+      maxlength="50"
       style="width: 80%"
       placeholder="Please input"
       show-word-limit
