@@ -70,11 +70,14 @@ function addMessage(message) {
         :message="message"
       />
     </el-scrollbar>
+    <div v-if="loadingAnswer" style="text-align: center">
+      <span class="loading">Wiki Bot печатает...</span>
+    </div>
     <WikiChatEditor @submit="submit" />
   </div>
 </template>
 
-<style scoped>
+<style>
 .chat-detail {
   height: 100%;
   display: flex;
@@ -85,5 +88,20 @@ function addMessage(message) {
 .messages {
   height: 80%;
   overflow: auto;
+}
+
+.loading {
+  font-weight: bold;
+  display: inline;
+  font-family: monospace;
+  font-size: 24px;
+  clip-path: inset(0 3ch 0 0);
+  animation: l 1s steps(4) infinite;
+}
+
+@keyframes l {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
 }
 </style>

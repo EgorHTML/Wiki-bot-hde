@@ -2,7 +2,6 @@ import request from '../request.js'
 import HDE from '../../plugin'
 
 export default function (query, chatId = HDE.getState().ticketId) {
-  console.log(chatId, 'chatId')
   if (isNaN(chatId)) throw new Error('Chat id is not a number in wikibot asc.')
   if (!query) throw new Error('Query undefined in wikibot asc.')
 
