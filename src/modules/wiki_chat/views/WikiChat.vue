@@ -3,6 +3,8 @@
 import { ref } from 'vue'
 import WikiChatEditor from '../components/WikiChatEditor.vue'
 import WikiChatMessage from '../components/WikiChatMessage.vue'
+import asc from '../../../services/wikibot/asc.js'
+import answer from '../../../services/wikibot/answer.js'
 
 const messages = ref([])
 const currentUser = getCurrentUser()
@@ -16,7 +18,7 @@ function getCurrentUser() {
   return data.usersOnline.find((user) => user.id === userId)
 }
 
-function submit(textarea) {
+async function submit(textarea) {
   try {
     addMessage({
       id: messages.value.length + 1,
@@ -29,6 +31,20 @@ function submit(textarea) {
   } catch {
     /* empty */
   }
+  asc(textarea).then(async () => {
+    const data = (await answer()).data
+    console.log((await answer()).data, 'await answer')
+    if (data.data.answer) {
+      addMessage({
+        id: messages.value.length + 1,
+        text: data.data.answer,
+        sender: {
+          name: 'Wiki Bot',
+          id: 0,
+        },
+      })
+    }
+  })
 }
 
 function addMessage(message) {

@@ -14,10 +14,7 @@ import WikibotMainView from './views/WikibotMainView.vue'
   padding: 0;
   margin: 0;
   list-style: none;
-}
-
-html.dark {
-  /* custom dark bg color */
-  --el-bg-color: #626aef;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 </style>

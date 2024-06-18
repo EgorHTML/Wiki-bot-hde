@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="ticket-conversation__message-block">
+  <div class="ticket-conversation__message-block message">
     <div
       class="ticket-conversation__message-meta ticket-conversation__message-meta_staff"
     >
@@ -34,4 +34,8 @@ const props = defineProps({
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.message {
+  margin-bottom: 10px;
+}
+</style>

@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+<script setup>
 import { ref } from 'vue'
 import WikiChat from '../modules/wiki_chat/views/WikiChat.vue'
 
