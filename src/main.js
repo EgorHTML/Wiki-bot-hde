@@ -4,12 +4,8 @@ import HDE from './plugin'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import 'element-plus/theme-chalk/dark/css-vars.css'
-// import asc from './services/wikibot/asc'
-// import answer from './services/wikibot/answer'
 
 HDE.on('ready', async () => {
-  console.log(HDE.getState())
   let { plugin } = HDE.getState()
   plugin.showButton = true
   HDE.emit('setPlugin', plugin)
@@ -20,6 +16,4 @@ HDE.on('ready', async () => {
   }
   app.use(ElementPlus)
   app.mount('#app')
-
-  // console.log(await asc('как создать кастом поле'))
 })

@@ -39,7 +39,6 @@ async function getAnswer(textarea) {
   loadingAnswer.value = true
 
   const dataAnswer = (await asc(textarea)).data
-  console.log(dataAnswer)
 
   if (dataAnswer.answer) {
     addMessage({
