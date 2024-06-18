@@ -4,10 +4,10 @@ import { ref } from 'vue'
 import WikiChatEditor from '../components/WikiChatEditor.vue'
 import WikiChatMessage from '../components/WikiChatMessage.vue'
 import asc from '../../../services/wikibot/asc.js'
-import answer from '../../../services/wikibot/answer.js'
 
 const messages = ref([])
 const currentUser = getCurrentUser()
+const loadingAnswer = ref(false)
 
 function getCurrentUser() {
   const data = JSON.parse(
@@ -29,29 +29,30 @@ async function submit(textarea) {
       },
     })
   } catch {
-    /* empty */
+    console.warn('write message')
   }
 
   getAnswer(textarea)
 }
 
-function getAnswer(textarea) {
-  asc(textarea).then(async () => {
-    const data = (await answer()).data
+async function getAnswer(textarea) {
+  loadingAnswer.value = true
 
-    console.log((await answer()).data, 'await answer')
+  const dataAnswer = (await asc(textarea)).data
+  console.log(dataAnswer)
 
-    if (data.data.answer) {
-      addMessage({
-        id: messages.value.length + 1,
-        text: data.data.answer,
-        sender: {
-          name: 'Wiki Bot',
-          id: 0,
-        },
-      })
-    }
-  })
+  if (dataAnswer.answer) {
+    addMessage({
+      id: messages.value.length + 1,
+      text: dataAnswer.answer,
+      sender: {
+        name: 'Wiki Bot',
+        id: 0,
+      },
+    })
+  }
+
+  loadingAnswer.value = false
 }
 
 function addMessage(message) {

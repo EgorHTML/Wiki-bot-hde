@@ -21,7 +21,5 @@ HDE.on('ready', async () => {
   app.use(ElementPlus)
   app.mount('#app')
 
-  //   asc('как подключить телефонию')
-
-  //   console.log(await answer())
+  // console.log(await asc('как создать кастом поле'))
 })
