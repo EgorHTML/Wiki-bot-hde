@@ -5,19 +5,34 @@ import WikiChatEditor from '../components/WikiChatEditor.vue'
 import WikiChatMessage from '../components/WikiChatMessage.vue'
 
 const messages = ref([])
+const currentUser = getCurrentUser()
 
-function submit() {
-  addMessage({
-    id: 1,
-    text: 'testovoe soobchenie',
-    sender: {
-      name: 'Egor',
-      id: 1,
-    },
-  })
+function getCurrentUser() {
+  const data = JSON.parse(
+    window.parent.document.querySelector('#ticketAppInitialState').innerHTML
+  )
+  const userId = data.currentUser.userId
+
+  return data.usersOnline.find((user) => user.id === userId)
+}
+
+function submit(textarea) {
+  try {
+    addMessage({
+      id: messages.value.length + 1,
+      text: textarea,
+      sender: {
+        name: currentUser.name,
+        id: currentUser.userId,
+      },
+    })
+  } catch {
+    /* empty */
+  }
 }
 
 function addMessage(message) {
+  if (!message.text) throw new Error('Text message undefined')
   console.log('mes')
   messages.value = [...messages.value, message]
   console.log(message, 'messages')
@@ -26,13 +41,13 @@ function addMessage(message) {
 
 <template>
   <div class="chat-detail">
-    <div class="messages">
+    <el-scrollbar class="messages">
       <WikiChatMessage
         v-for="message in messages"
         :key="message.id"
         :message="message"
       />
-    </div>
+    </el-scrollbar>
     <WikiChatEditor @submit="submit" />
   </div>
 </template>
@@ -42,9 +57,11 @@ function addMessage(message) {
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 .messages {
-  flex: 1 1;
+  height: 80%;
+  overflow: auto;
 }
 </style>

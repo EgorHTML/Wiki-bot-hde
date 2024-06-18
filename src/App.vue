@@ -15,4 +15,9 @@ import WikibotMainView from './views/WikibotMainView.vue'
   margin: 0;
   list-style: none;
 }
+
+html.dark {
+  /* custom dark bg color */
+  --el-bg-color: #626aef;
+}
 </style>

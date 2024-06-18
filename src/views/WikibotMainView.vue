@@ -3,7 +3,7 @@
     <el-tabs v-model="activeName" class="demo-tabs">
       <el-tab-pane label="Wiki Chat" name="chat" class="chat_container">
       </el-tab-pane>
-      <el-tab-pane label="Other..." name="Other">Other...</el-tab-pane>
+      <el-tab-pane label="Other..." name="Other"></el-tab-pane>
     </el-tabs>
     <div class="chat_container">
       <WikiChat />
@@ -23,16 +23,13 @@ const activeName = ref('chat')
   font-weight: 700;
 }
 
-.el-tabs__content {
-  height: 100%;
-}
-
 .container {
   display: flex;
   flex-direction: column;
 }
 
 .chat_container {
-  flex: 1 1;
+  height: 100%;
+  overflow: hidden;
 }
 </style>
