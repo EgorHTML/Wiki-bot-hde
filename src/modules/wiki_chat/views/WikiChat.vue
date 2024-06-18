@@ -31,9 +31,16 @@ async function submit(textarea) {
   } catch {
     /* empty */
   }
+
+  getAnswer(textarea)
+}
+
+function getAnswer(textarea) {
   asc(textarea).then(async () => {
     const data = (await answer()).data
+
     console.log((await answer()).data, 'await answer')
+
     if (data.data.answer) {
       addMessage({
         id: messages.value.length + 1,
@@ -49,9 +56,7 @@ async function submit(textarea) {
 
 function addMessage(message) {
   if (!message.text) throw new Error('Text message undefined')
-  console.log('mes')
   messages.value = [...messages.value, message]
-  console.log(message, 'messages')
 }
 </script>
 
