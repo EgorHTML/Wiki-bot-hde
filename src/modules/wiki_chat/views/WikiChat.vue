@@ -5,6 +5,7 @@ import WikiChatEditor from '../components/WikiChatEditor.vue'
 import WikiChatMessage from '../components/WikiChatMessage.vue'
 import asc from '../../../services/wikibot/asc.js'
 import answer from '../../../services/wikibot/answer.js'
+import HDE from '../../../plugin'
 
 const messages = ref([])
 const currentUser = getCurrentUser()
@@ -36,21 +37,34 @@ async function submit(textarea) {
 }
 
 function getAnswer(textarea) {
-  asc(textarea).then(async () => {
-    const data = (await answer()).data
+  console.log(HDE.getState().ticketId + '_' + messages.value.length, 'ask')
+  const date = new Date().getMilliseconds()
+  asc(textarea, HDE.getState().ticketId + '_' + date).then(async () => {
+    let data = (await answer(HDE.getState().ticketId + '_' + date)).data
 
-    console.log((await answer()).data, 'await answer')
+    console.log(
+      (await answer(HDE.getState().ticketId + '_' + date)).data,
+      'await answer'
+    )
 
-    if (data.data.answer) {
-      addMessage({
-        id: messages.value.length + 1,
-        text: data.data.answer,
-        sender: {
-          name: 'Wiki Bot',
-          id: 0,
-        },
-      })
-    }
+    const id = setInterval(async () => {
+      if (data.data?.chatId == HDE.getState().ticketId + '_' + date) {
+        if (data.data?.answer) {
+          addMessage({
+            id: messages.value.length + 1,
+            text: data.data.answer,
+            sender: {
+              name: 'Wiki Bot',
+              id: 0,
+            },
+          })
+        }
+        clearInterval(id)
+        return
+      }
+      data = (await answer(HDE.getState().ticketId + '_' + date)).data
+      console.log(data, 'data')
+    }, 1000)
   })
 }
 

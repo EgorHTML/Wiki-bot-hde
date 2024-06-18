@@ -1,6 +1,6 @@
 import HDE from '../../plugin'
 
-export default function (endpoint = 'wikibot', value) {
+export default function (value, endpoint = 'wikibot') {
   const ticketId = HDE.getState().ticketId
 
   if (!ticketId) throw new Error('ticket Id undefined in answer wikibot.')
