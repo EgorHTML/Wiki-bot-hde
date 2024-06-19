@@ -4,19 +4,12 @@ import { ref } from 'vue'
 import WikiChatEditor from '../components/WikiChatEditor.vue'
 import WikiChatMessage from '../components/WikiChatMessage.vue'
 import asc from '../../../services/wikibot/asc.js'
+import { getCurrentUser } from '../utils/user.js'
 
 const messages = ref([])
 const currentUser = getCurrentUser()
 const loadingAnswer = ref(false)
-
-function getCurrentUser() {
-  const data = JSON.parse(
-    window.parent.document.querySelector('#ticketAppInitialState').innerHTML
-  )
-  const userId = data.currentUser.userId
-
-  return data.usersOnline.find((user) => user.id === userId)
-}
+const messegesContainer = ref()
 
 async function submit(textarea) {
   try {
@@ -25,14 +18,16 @@ async function submit(textarea) {
       text: textarea,
       sender: {
         name: currentUser.name,
-        id: currentUser.userId,
+        id: currentUser.id,
       },
     })
+    await getAnswer(textarea)
+    messegesContainer.value.setScrollTop(
+      messegesContainer.value.wrapRef.scrollHeight
+    )
   } catch {
     console.warn('write message')
   }
-
-  getAnswer(textarea)
 }
 
 async function getAnswer(textarea) {
@@ -62,7 +57,7 @@ function addMessage(message) {
 
 <template>
   <div class="chat-detail">
-    <el-scrollbar class="messages">
+    <el-scrollbar ref="messegesContainer" class="messages">
       <WikiChatMessage
         v-for="message in messages"
         :key="message.id"
@@ -82,6 +77,8 @@ function addMessage(message) {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  word-break: break-word;
 }
 
 .messages {
@@ -89,11 +86,16 @@ function addMessage(message) {
   overflow: auto;
 }
 
+.el-scrollbar__view {
+  display: flex;
+  flex-direction: column;
+}
+
 .loading {
   font-weight: bold;
   display: inline;
   font-family: monospace;
-  font-size: 24px;
+  font-size: 20px;
   clip-path: inset(0 3ch 0 0);
   animation: l 1s steps(4) infinite;
 }
