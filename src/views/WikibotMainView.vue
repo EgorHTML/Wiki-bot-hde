@@ -26,6 +26,7 @@ const activeName = ref('chat')
 .container {
   display: flex;
   flex-direction: column;
+  background-color: rgb(214, 210, 253);
 }
 
 .chat_container {
