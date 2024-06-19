@@ -63,7 +63,4 @@ const isMyMessage = currentUser.id === props.message.sender.id
 .message_info {
   margin: 0 4%;
 }
-
-.ticket-conversation__message-html {
-}
 </style>
