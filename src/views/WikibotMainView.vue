@@ -22,6 +22,9 @@ const activeName = ref('chat')
 </script>
 
 <style>
+.el-tabs {
+  margin: 0 10px;
+}
 .el-tabs__item.is-top {
   font-size: 20px;
   font-weight: 700;

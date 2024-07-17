@@ -21,18 +21,20 @@ async function submit(textarea) {
         id: currentUser.id,
       },
     })
+    setLoading(true)
     await getAnswer(textarea)
+    setLoading(false)
     messegesContainer.value.setScrollTop(
       messegesContainer.value.wrapRef.scrollHeight
     )
   } catch {
     console.warn('write message')
+  } finally {
+    setLoading(false)
   }
 }
 
 async function getAnswer(textarea) {
-  loadingAnswer.value = true
-
   const dataAnswer = (await asc(textarea)).data
 
   if (dataAnswer.answer) {
@@ -45,8 +47,10 @@ async function getAnswer(textarea) {
       },
     })
   }
+}
 
-  loadingAnswer.value = false
+function setLoading(flag) {
+  loadingAnswer.value = flag
 }
 
 function addMessage(message) {
@@ -64,10 +68,12 @@ function addMessage(message) {
         :message="message"
       />
     </el-scrollbar>
-    <div v-if="loadingAnswer" style="text-align: center">
-      <span class="loading">Wiki Bot печатает...</span>
+    <div style="align-self: center; width: 70%">
+      <span v-if="loadingAnswer" style="text-align: left" class="loading"
+        >Суфлёр Wikibot печатает...</span
+      >
+      <WikiChatEditor @submit="submit" />
     </div>
-    <WikiChatEditor @submit="submit" />
   </div>
 </template>
 
