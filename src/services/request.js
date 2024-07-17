@@ -9,5 +9,6 @@ export default function (url, params = {}) {
     auth: auth || '',
     headers,
     contentType: 'application/json',
+    data: '',
   })
 }
