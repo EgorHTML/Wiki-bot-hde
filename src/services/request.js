@@ -8,5 +8,6 @@ export default function (url, params = {}) {
     method: method || 'GET',
     auth: auth || '',
     headers,
+    contentType: 'application/json',
   })
 }
