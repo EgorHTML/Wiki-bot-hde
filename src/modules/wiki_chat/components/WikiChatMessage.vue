@@ -38,9 +38,10 @@ const isMyMessage = currentUser.id === props.message.sender.id
       <div
         class="ticket-conversation__message-text ticket-conversation__message-text_post-own"
       >
-        <div class="ticket-conversation__message-html">
-          <p>{{ props.message.text }}</p>
-        </div>
+        <div
+          class="ticket-conversation__message-html"
+          v-html="props.message.text"
+        ></div>
       </div>
     </div>
   </div>
