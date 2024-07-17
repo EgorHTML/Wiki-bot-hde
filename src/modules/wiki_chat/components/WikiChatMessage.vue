@@ -1,6 +1,8 @@
 <script setup>
 import { getCurrentUser } from '../utils/user.js'
 import linkifyHtml from 'linkify-html'
+import { ref } from 'vue'
+import { DocumentCopy } from '@element-plus/icons-vue'
 
 const props = defineProps({
   message: {
@@ -20,20 +22,41 @@ const props = defineProps({
 })
 
 const currentUser = getCurrentUser()
-
 const isMyMessage = currentUser.id === props.message.sender.id
+
+const activeCopy = ref(false)
 
 const options = {
   target: '_blank',
 }
 const linkifyText = linkifyHtml(props.message.text, options)
+
+function showCopyMessage() {
+  activeCopy.value = true
+}
+
+function hiddenCopyMessage() {
+  activeCopy.value = false
+}
+
+function copy() {
+  navigator.clipboard.writeText(linkifyText)
+}
 </script>
 
 <template>
   <div
     class="ticket-conversation__message-block message"
     :style="{ 'align-self': isMyMessage ? '' : 'flex-end' }"
+    @mouseover="showCopyMessage"
+    @mouseleave="hiddenCopyMessage"
   >
+    <el-icon
+      style="float: right; padding: 0 5px; cursor: pointer"
+      :style="{ visibility: activeCopy ? 'visible' : 'hidden' }"
+      @click="copy"
+      ><DocumentCopy
+    /></el-icon>
     <div class="message_info">
       <div
         class="ticket-conversation__message-meta ticket-conversation__message-meta_staff"
@@ -58,6 +81,7 @@ const linkifyText = linkifyHtml(props.message.text, options)
   font-weight: 700;
   font-size: 18px;
 }
+
 .message {
   letter-spacing: 1px;
   word-spacing: 2px;
