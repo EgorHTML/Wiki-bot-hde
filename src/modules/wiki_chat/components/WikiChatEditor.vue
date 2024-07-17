@@ -6,7 +6,6 @@ const emit = defineEmits(['submit'])
 const textarea = ref('')
 
 function submit() {
-  console.log(textarea.value, 'textarea.value')
   emit('submit', textarea.value.replace(/\n/g, '<br/>'))
   textarea.value = ''
 }

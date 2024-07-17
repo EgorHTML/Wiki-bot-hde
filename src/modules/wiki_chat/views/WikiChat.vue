@@ -36,13 +36,22 @@ async function submit(textarea) {
 
 async function getAnswer(textarea) {
   const dataAnswer = (await asc(textarea)).data
-
+  console.log(dataAnswer, 'dataAnswer')
   if (dataAnswer.answer) {
     addMessage({
       id: messages.value.length + 1,
       text: dataAnswer.answer,
       sender: {
-        name: 'Wiki Bot',
+        name: 'Суфлёр Wikibot',
+        id: 0,
+      },
+    })
+  } else if (!dataAnswer) {
+    addMessage({
+      id: messages.value.length + 1,
+      text: 'Извините, по техническим причинам я не могу помочь Вам (',
+      sender: {
+        name: 'Суфлёр Wikibot',
         id: 0,
       },
     })
