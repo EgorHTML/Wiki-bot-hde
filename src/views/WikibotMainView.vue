@@ -1,9 +1,13 @@
 <template>
   <div class="container" style="height: 100%">
     <el-tabs v-model="activeName" class="demo-tabs">
-      <el-tab-pane label="Wiki Chat" name="chat" class="chat_container">
+      <el-tab-pane
+        color="black"
+        label="Суфлёр Wikibot"
+        name="chat"
+        class="chat_container"
+      >
       </el-tab-pane>
-      <el-tab-pane label="Other..." name="Other"></el-tab-pane>
     </el-tabs>
     <div class="chat_container">
       <WikiChat />
@@ -26,11 +30,15 @@ const activeName = ref('chat')
 .container {
   display: flex;
   flex-direction: column;
-  background-color: rgb(214, 210, 253);
+  background-color: #23869b;
 }
 
 .chat_container {
   height: 100%;
   overflow: hidden;
+}
+
+#tab-chat {
+  color: #fff;
 }
 </style>

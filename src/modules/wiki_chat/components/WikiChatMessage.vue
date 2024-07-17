@@ -31,11 +31,7 @@ const isMyMessage = currentUser.id === props.message.sender.id
     <div class="message_info">
       <div
         class="ticket-conversation__message-meta ticket-conversation__message-meta_staff"
-        style="
-          color: var(--el-color-primary);
-          font-weight: 700;
-          font-size: 18px;
-        "
+        style="color: #224499; font-weight: 700; font-size: 18px"
       >
         {{ props.message.sender.name }}
       </div>
@@ -58,6 +54,8 @@ const isMyMessage = currentUser.id === props.message.sender.id
   width: 85%;
   border: 2px dashed #77cadd;
   box-shadow: 0px 0px 5px 1px rgb(119, 202, 221, 0.5);
+  color: #fff;
+  padding: 7px 0;
 }
 
 .message_info {

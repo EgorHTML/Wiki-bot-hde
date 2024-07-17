@@ -1,7 +1,6 @@
 <script setup>
-import { Message } from '@element-plus/icons-vue'
+import { Promotion } from '@element-plus/icons-vue'
 import { defineEmits, ref } from 'vue'
-
 const emit = defineEmits(['submit'])
 
 const textarea = ref('')
@@ -13,33 +12,31 @@ function submit() {
 </script>
 
 <template>
-  <div class="editor">
+  <div class="editor" @keyup.ctrl.enter="submit">
     <el-input
       v-model="textarea"
+      style="width: 80%"
       input-style="font-size:20px;max-height: 200px;"
       size="large"
-      style="width: 80%"
-      placeholder="Please input"
-      show-word-limit
+      placeholder="Введите запрос"
       type="textarea"
+      :autosize="{ minRows: 2, maxRows: 7 }"
     >
     </el-input>
     <el-button
       type="info"
-      :icon="Message"
       circle
       style="font-size: 18px; width: 3em; height: 3em; align-self: center"
       @click="submit"
-    />
+    >
+      <el-icon :size="30">
+        <Promotion style="font-size: 25px" />
+      </el-icon>
+    </el-button>
   </div>
 </template>
 
 <style scoped>
-textarea {
-  min-height: 80px;
-  max-height: 200px;
-}
-
 .editor {
   align-self: center;
   width: 80%;
