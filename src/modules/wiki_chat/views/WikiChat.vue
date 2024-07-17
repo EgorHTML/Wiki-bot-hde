@@ -35,7 +35,6 @@ async function submit(textarea) {
         id: 0,
       },
     })
-    console.warn('write message')
   } finally {
     setLoading(false)
   }
@@ -43,8 +42,11 @@ async function submit(textarea) {
 
 async function getAnswer(textarea) {
   const dataAnswer = (await asc(textarea)).data
+
   if (!dataAnswer)
     throw new Error('Извините, по техническим причинам я не могу помочь Вам (')
+
+  if (dataAnswer?.error) throw new Error(dataAnswer.error)
 
   if (dataAnswer.answer) {
     addMessage({
@@ -58,9 +60,9 @@ async function getAnswer(textarea) {
   } else {
     addMessage({
       id: messages.value.length + 1,
-      text: dataAnswer.answer,
+      text: 'Стрекочут кузнечики...',
       sender: {
-        name: 'Стрекочут кузнечики...',
+        name: 'Суфлёр Wikibot',
         id: 0,
       },
     })
