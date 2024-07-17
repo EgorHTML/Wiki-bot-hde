@@ -1,4 +1,3 @@
-<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { ref } from 'vue'
 import WikiChatEditor from '../components/WikiChatEditor.vue'
@@ -27,7 +26,15 @@ async function submit(textarea) {
     messegesContainer.value.setScrollTop(
       messegesContainer.value.wrapRef.scrollHeight
     )
-  } catch {
+  } catch (error) {
+    addMessage({
+      id: messages.value.length + 1,
+      text: error.message,
+      sender: {
+        name: 'Суфлёр Wikibot',
+        id: 0,
+      },
+    })
     console.warn('write message')
   } finally {
     setLoading(false)
@@ -36,7 +43,9 @@ async function submit(textarea) {
 
 async function getAnswer(textarea) {
   const dataAnswer = (await asc(textarea)).data
-  console.log(dataAnswer, 'dataAnswer')
+  if (!dataAnswer)
+    throw new Error('Извините, по техническим причинам я не могу помочь Вам (')
+
   if (dataAnswer.answer) {
     addMessage({
       id: messages.value.length + 1,
@@ -46,12 +55,12 @@ async function getAnswer(textarea) {
         id: 0,
       },
     })
-  } else if (!dataAnswer) {
+  } else {
     addMessage({
       id: messages.value.length + 1,
-      text: 'Извините, по техническим причинам я не могу помочь Вам (',
+      text: dataAnswer.answer,
       sender: {
-        name: 'Суфлёр Wikibot',
+        name: 'Стрекочут кузнечики...',
         id: 0,
       },
     })
@@ -63,7 +72,7 @@ function setLoading(flag) {
 }
 
 function addMessage(message) {
-  if (!message.text) throw new Error('Text message undefined')
+  if (!message.text) throw new Error('Введите сообщение.')
   messages.value = [...messages.value, message]
 }
 </script>
