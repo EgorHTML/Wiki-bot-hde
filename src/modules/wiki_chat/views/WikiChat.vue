@@ -23,9 +23,6 @@ async function submit(textarea) {
     setLoading(true)
     await getAnswer(textarea)
     setLoading(false)
-    messegesContainer.value.setScrollTop(
-      messegesContainer.value.wrapRef.scrollHeight
-    )
   } catch (error) {
     addMessage({
       id: messages.value.length + 1,
@@ -37,8 +34,11 @@ async function submit(textarea) {
     })
   } finally {
     setLoading(false)
+    scrollToLastMessage()
   }
 }
+
+function scrollToLastMessage() {}
 
 async function getAnswer(textarea) {
   const dataAnswer = (await asc(textarea)).data
@@ -83,9 +83,10 @@ function addMessage(message) {
   <div class="chat-detail">
     <el-scrollbar ref="messegesContainer" class="messages">
       <WikiChatMessage
-        v-for="message in messages"
+        v-for="(message, index) in messages"
         :key="message.id"
         :message="message"
+        :scroll="messages.length - 1 === index"
       />
     </el-scrollbar>
     <div style="align-self: center; width: 70%">

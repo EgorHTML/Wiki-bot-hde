@@ -6,13 +6,13 @@ const emit = defineEmits(['submit'])
 const textarea = ref('')
 
 function submit() {
-  emit('submit', textarea.value.replace(/\n/g, '<br/>'))
+  emit('submit', textarea.value)
   textarea.value = ''
 }
 </script>
 
 <template>
-  <div class="editor" @keyup.ctrl.enter="submit">
+  <div class="editor" @keyup.enter.prevent="submit">
     <el-input
       v-model="textarea"
       style="width: 80%"
@@ -21,6 +21,7 @@ function submit() {
       placeholder="Введите запрос"
       type="textarea"
       :autosize="{ minRows: 2, maxRows: 7 }"
+      @keydown.enter.prevent=""
     >
     </el-input>
     <el-button

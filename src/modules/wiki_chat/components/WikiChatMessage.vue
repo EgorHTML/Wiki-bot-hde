@@ -1,7 +1,7 @@
 <script setup>
 import { getCurrentUser } from '../utils/user.js'
 import linkifyHtml from 'linkify-html'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { DocumentCopy } from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -19,17 +19,25 @@ const props = defineProps({
       }
     },
   },
+  scroll: {
+    type: Boolean,
+  },
 })
 
 const currentUser = getCurrentUser()
 const isMyMessage = currentUser.id === props.message.sender.id
 
 const activeCopy = ref(false)
+const message = ref()
 
 const options = {
   target: '_blank',
 }
 const linkifyText = linkifyHtml(props.message.text, options)
+
+onMounted(() => {
+  message.value.scrollIntoView()
+})
 
 function showCopyMessage() {
   activeCopy.value = true
@@ -46,6 +54,7 @@ function copy() {
 
 <template>
   <div
+    ref="message"
     class="ticket-conversation__message-block message"
     :style="{ 'align-self': isMyMessage ? '' : 'flex-end' }"
     @mouseover="showCopyMessage"
