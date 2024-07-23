@@ -1,19 +1,26 @@
 <script setup>
+import { computed } from 'vue'
 import TicketConversationMessage from '../components/TicketConversationMessage.vue'
 
-const prop = {
-  user: {
-    id: 1,
-    name: 'Егор',
-    imageUrl: '',
-    type: 'staff',
+const props = defineProps({
+  messages: {
+    required: false,
+    default() {
+      return []
+    },
+    type: Array,
   },
-  content: '<p>Привет !<p>',
-}
+})
+
+const messages = computed(() => props.messages)
 </script>
 
 <template>
   <div class="ticket-conversation">
-    <TicketConversationMessage :message="prop" />
+    <TicketConversationMessage
+      v-for="message in messages"
+      :key="message.id"
+      :message="message"
+    />
   </div>
 </template>

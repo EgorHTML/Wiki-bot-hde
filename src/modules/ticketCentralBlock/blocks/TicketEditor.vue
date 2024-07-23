@@ -2,10 +2,17 @@
 import { ClassicEditor, Essentials, Mention, Paragraph } from 'ckeditor5'
 import { ref } from 'vue'
 
-const editorData = ref('<p>Hello from CKEditor 5 in Vue!</p>')
+const emit = defineEmits(['submit'])
+
+const editorData = ref('')
 const editorConfig = {
   plugins: [Essentials, Mention, Paragraph],
   toolbar: ['|', 'bold', 'italic'],
+}
+
+function submit() {
+  emit('submit', editorData.value)
+  editorData.value = ''
 }
 </script>
 
@@ -19,6 +26,7 @@ const editorConfig = {
     <button
       class="el-button el-button--primary el-button--mini"
       style="float: right"
+      @click="submit"
     >
       Добавить ответ
     </button>
