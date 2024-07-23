@@ -2,7 +2,7 @@
 import { computed, inject } from 'vue'
 
 const ticketValues = inject('ticketValues')
-console.log(ticketValues.value)
+
 const title = computed(() => ticketValues.value.title)
 const uniqueId = computed(() => ticketValues.value.uniqueId)
 const createdAt = computed(() => ticketValues.value.createdAt)

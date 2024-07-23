@@ -24,3 +24,9 @@ const messages = computed(() => props.messages)
     />
   </div>
 </template>
+
+<style scoped>
+.ticket-conversation {
+  overflow: auto !important;
+}
+</style>

@@ -17,7 +17,7 @@ function submit() {
 </script>
 
 <template>
-  <div class="ticket-detail__editor">
+  <div class="ticket-detail__editor" @keydown.enter="submit">
     <ckeditor
       v-model="editorData"
       :editor="ClassicEditor"
@@ -38,6 +38,7 @@ function submit() {
   display: none;
 }
 .ticket-detail__editor {
+  border-top: 1px solid #ccced1 !important;
   flex: 1;
   margin: 10px 5px;
   position: relative;

@@ -21,12 +21,18 @@ const props = defineProps({
 
 const user = computed(() => props.message.user)
 
+function parseCalendarNumber(num) {
+  return num < 10 && !isNaN(num) ? '0' + num : num
+}
+
 function getDateMessage() {
   const date = new Date()
-
-  return `${date.getDate()}.${
-    date.getMonth() + 1
-  }.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
+  const minutes = parseCalendarNumber(date.getMinutes())
+  const hours = parseCalendarNumber(date.getHours())
+  const fullYear = parseCalendarNumber(date.getFullYear())
+  const month = parseCalendarNumber(date.getMonth() + 1)
+  const day = parseCalendarNumber(date.getDate())
+  return `${day}.${month}.${fullYear} ${hours}:${minutes}`
 }
 </script>
 
