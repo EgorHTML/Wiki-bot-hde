@@ -19,9 +19,6 @@ const createdAt = computed(() => ticketValues.value.createdAt)
 
 <style>
 .ticket-detail__title {
-  font-weight: normal;
-  color: #606266;
-  border-bottom: 1px solid #c5c9d3;
-  margin: 10px 5px 0 5px;
+  border-bottom: 1px solid #c5cad3 !important;
 }
 </style>

@@ -5,12 +5,12 @@ const prop = {
   imageUrl: '',
   name: 'User',
   content: '<p>Привет !</p>',
-  type: 'staff',
+  type: 'user',
 }
 </script>
 
 <template>
-  <div style="flex: 1 1">
+  <div class="ticket-conversation">
     <TicketConversationMessage :message="prop" />
   </div>
 </template>

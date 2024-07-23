@@ -49,7 +49,7 @@ function getDateMessage() {
       </div>
       <div
         class="ticket-conversation__message-text"
-        :class="`ticket-conversation__message-text_post-own`"
+        :class="`ticket-conversation__message-text_${props.message.type}`"
       >
         <div
           class="ticket-conversation__message-html"

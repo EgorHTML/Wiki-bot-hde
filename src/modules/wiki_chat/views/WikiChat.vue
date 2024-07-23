@@ -77,7 +77,11 @@ function addMessage(message) {
 </script>
 
 <template>
-  <TicketDetail />
+  <div id="ticket-app">
+    <div class="ticket">
+      <TicketDetail />
+    </div>
+  </div>
 </template>
 
 <style>
