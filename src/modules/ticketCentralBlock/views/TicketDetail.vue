@@ -15,10 +15,14 @@ provide('ticketValues', ticketValues)
 </script>
 
 <template>
-  <div class="ticket_detail">
-    <TicketConversationTitleBlock />
-    <TicketConversationMessagesBlock />
-    <TicketEditor />
+  <div id="ticket-app">
+    <div class="ticket">
+      <div class="ticket_detail">
+        <TicketConversationTitleBlock />
+        <TicketConversationMessagesBlock />
+        <TicketEditor />
+      </div>
+    </div>
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
   <div class="container" style="height: 100%">
-    <WikiChat />
+    <TicketDetail />
   </div>
 </template>
 <script setup>
-import WikiChat from '../modules/wiki_chat/views/WikiChat.vue'
+import TicketDetail from '../modules/ticketCentralBlock/views/TicketDetail.vue'
 </script>
 
 <style></style>

@@ -5,10 +5,13 @@ const props = defineProps({
     type: Object,
     default() {
       return {
-        imageUrl: '',
-        name: 'User',
+        user: {
+          id: 1,
+          name: 'Егор',
+          imageUrl: '',
+          type: 'staff',
+        },
         content: 'text',
-        type: 'staff',
       }
     },
   },

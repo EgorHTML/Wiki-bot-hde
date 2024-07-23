@@ -2,10 +2,13 @@
 import TicketConversationMessage from '../components/TicketConversationMessage.vue'
 
 const prop = {
-  imageUrl: '',
-  name: 'User',
-  content: '<p>Привет !</p>',
-  type: 'user',
+  user: {
+    id: 1,
+    name: 'Егор',
+    imageUrl: '',
+    type: 'staff',
+  },
+  content: '<p>Привет !<p>',
 }
 </script>
 
