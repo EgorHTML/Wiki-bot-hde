@@ -43,4 +43,16 @@ function submit() {
   margin: 10px 5px;
   position: relative;
 }
+
+#ticket-app .el-button--primary {
+  margin-top: 10px;
+  color: var(--ticket-primary-button-color, #fff);
+  background-color: var(--ticket-primary-button-background, #23869b);
+  border-color: var(--ticket-primary-button-background, #23869b);
+}
+#ticket-app .el-button--primary:hover {
+  color: var(--ticket-primary-button-color-hover, #fff);
+  background-color: var(--ticket-primary-button-background-hover, #4f9eaf);
+  border-color: var(--ticket-primary-button-background-hover, #4f9eaf);
+}
 </style>

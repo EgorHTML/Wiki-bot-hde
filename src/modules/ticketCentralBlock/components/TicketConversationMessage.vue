@@ -34,6 +34,10 @@ function getDateMessage() {
   const day = parseCalendarNumber(date.getDate())
   return `${day}.${month}.${fullYear} ${hours}:${minutes}`
 }
+
+function copy() {
+  navigator.clipboard.writeText(props.message.content)
+}
 </script>
 
 <template>
@@ -69,6 +73,23 @@ function getDateMessage() {
           class="ticket-conversation__message-html"
           v-html="props.message.content"
         ></div>
+      </div>
+      <div class="ticket-conversation__actions">
+        <span
+          class="ticket-conversation__actions-btn ticket-conversation__show-on-hover"
+          ><span
+            title="Другие действия"
+            class="ticket-conversation__actions_button"
+          >
+            <button
+              title="Скопировать сообщение"
+              class="ticket-conversation__actions-create-ticket-from-post-button"
+              @click="copy"
+            >
+              <i class="hde-ticket"></i>
+            </button>
+          </span>
+        </span>
       </div>
     </div>
   </div>

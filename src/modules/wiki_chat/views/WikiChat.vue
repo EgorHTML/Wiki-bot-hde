@@ -104,7 +104,7 @@ function addMessage(message) {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
+  width: 100%;
   word-break: break-word;
 }
 
