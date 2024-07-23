@@ -1,9 +1,9 @@
-<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { ref } from 'vue'
+import WikiChatEditor from '../components/WikiChatEditor.vue'
+import WikiChatMessage from '../components/WikiChatMessage.vue'
 import asc from '../../../services/wikibot/asc.js'
 import { getCurrentUser } from '../utils/user.js'
-import TicketDetail from '../../ticketCentralBlock/views/TicketDetail.vue'
 
 const messages = ref([])
 const currentUser = getCurrentUser()
@@ -34,8 +34,11 @@ async function submit(textarea) {
     })
   } finally {
     setLoading(false)
+    scrollToLastMessage()
   }
 }
+
+function scrollToLastMessage() {}
 
 async function getAnswer(textarea) {
   const dataAnswer = (await asc(textarea)).data
@@ -77,14 +80,44 @@ function addMessage(message) {
 </script>
 
 <template>
-  <div id="ticket-app">
-    <div class="ticket">
-      <TicketDetail />
+  <div class="chat-detail">
+    <el-scrollbar ref="messegesContainer" class="messages">
+      <WikiChatMessage
+        v-for="(message, index) in messages"
+        :key="message.id"
+        :message="message"
+        :scroll="messages.length - 1 === index"
+      />
+    </el-scrollbar>
+    <div style="align-self: center; width: 70%">
+      <span v-if="loadingAnswer" style="text-align: left" class="loading"
+        >Суфлёр Wikibot печатает...</span
+      >
+      <WikiChatEditor @submit="submit" />
     </div>
   </div>
 </template>
 
 <style>
+.chat-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  word-break: break-word;
+}
+
+.messages {
+  height: 80%;
+  overflow: auto;
+}
+
+.el-scrollbar__view {
+  display: flex;
+  flex-direction: column;
+}
+
 .loading {
   font-weight: bold;
   display: inline;
