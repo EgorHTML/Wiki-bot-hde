@@ -30,7 +30,7 @@ const user = computed(() => props.message.user)
 const message = ref()
 
 onMounted(() => {
-  message.value.scrollIntoView()
+  if (props.scrollToLastMessage) message.value.scrollIntoView()
 })
 
 function parseCalendarNumber(num) {

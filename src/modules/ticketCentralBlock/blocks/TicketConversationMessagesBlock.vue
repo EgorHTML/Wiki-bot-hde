@@ -18,9 +18,10 @@ const messages = computed(() => props.messages)
 <template>
   <div class="ticket-conversation">
     <TicketConversationMessage
-      v-for="message in messages"
+      v-for="(message, index) in messages"
       :key="message.id"
       :message="message"
+      :scroll-to-last-message="messages.length - 1 === index"
     />
   </div>
 </template>
