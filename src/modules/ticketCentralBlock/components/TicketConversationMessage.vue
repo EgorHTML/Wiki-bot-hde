@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 const props = defineProps({
   message: {
@@ -18,9 +18,20 @@ const props = defineProps({
       }
     },
   },
+  scrollToLastMessage: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 const user = computed(() => props.message.user)
+
+const message = ref()
+
+onMounted(() => {
+  message.value.scrollIntoView()
+})
 
 function parseCalendarNumber(num) {
   return num < 10 && !isNaN(num) ? '0' + num : num
@@ -43,6 +54,7 @@ function copy() {
 
 <template>
   <div
+    ref="message"
     class="ticket-conversation__message"
     :class="`ticket-conversation__message_${user.type}`"
   >

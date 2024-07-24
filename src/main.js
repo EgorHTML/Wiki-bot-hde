@@ -17,6 +17,7 @@ HDE.on('ready', async () => {
   }
 
   document.head.innerHTML += window.parent.document.head.innerHTML
+
   app.use(ElementPlus)
   app.use(CKEditor)
   app.mount('#app')

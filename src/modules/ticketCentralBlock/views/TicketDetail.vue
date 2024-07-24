@@ -74,7 +74,7 @@ async function getAnswer(textarea) {
     addMessage({
       id: messages.value.length + 1,
       content: '<p>Стрекочут кузнечики...</p>',
-      sender: {
+      user: {
         name: 'Суфлёр Wikibot',
         id: 0,
         imageUrl: '',
