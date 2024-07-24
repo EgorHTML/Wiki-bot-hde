@@ -14,6 +14,7 @@ const props = defineProps({
           type: 'staff',
         },
         content: 'text',
+        id: 1,
       }
     },
   },

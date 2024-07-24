@@ -7,7 +7,7 @@ const emit = defineEmits(['submit'])
 const editorData = ref('')
 const editorConfig = {
   plugins: [Essentials, Mention, Paragraph],
-  toolbar: ['|', 'bold', 'italic'],
+  toolbar: ['|'],
 }
 
 function submit() {
