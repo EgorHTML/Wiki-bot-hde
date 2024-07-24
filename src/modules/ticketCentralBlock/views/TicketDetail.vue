@@ -2,6 +2,7 @@
 import TicketConversationTitleBlock from '../blocks/TicketConversationTitleBlock.vue'
 import TicketConversationMessagesBlock from '../blocks/TicketConversationMessagesBlock.vue'
 import TicketEditor from '../blocks/TicketEditor.vue'
+import LoadingBlock from '../blocks/LoadingBlock.vue'
 import { provide, ref } from 'vue'
 import HDE from '../../../plugin'
 import { getCurrentUser } from '../../wiki_chat/utils/user'
@@ -106,6 +107,7 @@ function addMessage(message) {
     <div class="ticket">
       <div class="ticket_detail">
         <TicketConversationTitleBlock />
+        <LoadingBlock v-if="loadingAnswer" />
         <TicketConversationMessagesBlock :messages="messages" />
         <TicketEditor @submit="submit" />
       </div>

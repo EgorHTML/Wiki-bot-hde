@@ -70,8 +70,8 @@ function copy() {
         class="ticket-conversation__message-meta"
         :class="`ticket-conversation__message-meta_${user.type}`"
       >
-        <span class="el-tooltip" tabindex="0"
-          ><span class="hde-question"></span> {{ user.name }}
+        <span class="el-tooltip" tabindex="0">
+          {{ user.name }}
           {{ getDateMessage() }}
         </span>
       </div>
