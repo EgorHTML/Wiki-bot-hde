@@ -34,11 +34,8 @@ async function submit(textarea) {
     })
   } finally {
     setLoading(false)
-    scrollToLastMessage()
   }
 }
-
-function scrollToLastMessage() {}
 
 async function getAnswer(textarea) {
   const dataAnswer = (await asc(textarea)).data

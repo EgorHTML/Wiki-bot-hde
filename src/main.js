@@ -8,7 +8,8 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import '@ckeditor/ckeditor5-theme-lark/dist/index.css'
 
 HDE.on('ready', async () => {
-  let { plugin } = HDE.getState()
+  const state = HDE.getState()
+  let { plugin } = state
   plugin.showButton = true
   HDE.emit('setPlugin', plugin)
   const app = createApp(App)

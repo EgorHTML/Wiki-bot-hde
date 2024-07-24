@@ -9,6 +9,8 @@ import asc from '../../../services/wikibot/asc'
 import linkifyHtml from 'linkify-html'
 
 const ticketValues = ref(HDE.getState().ticketValues)
+const botName = 'Суфлёр Wikibot'
+const botImageUrl = import.meta.env.VITE_BOT_IMAGE_URL
 
 HDE.watch('ticketValues', (to) => {
   ticketValues.value = to
@@ -28,7 +30,7 @@ async function submit(textarea) {
       user: {
         name: currentUser.name,
         id: currentUser.id,
-        imageUrl: '',
+        imageUrl: currentUser.image,
         type: 'staff',
       },
     })
@@ -40,9 +42,9 @@ async function submit(textarea) {
       id: messages.value.length + 1,
       content: error.message,
       user: {
-        name: 'Суфлёр Wikibot',
+        name: botName,
         id: 0,
-        imageUrl: '',
+        imageUrl: botImageUrl,
         type: 'user',
       },
     })
@@ -64,9 +66,9 @@ async function getAnswer(textarea) {
       id: messages.value.length + 1,
       content: dataAnswer.answer,
       user: {
-        name: 'Суфлёр Wikibot',
+        name: botName,
         id: 0,
-        imageUrl: '',
+        imageUrl: botImageUrl,
         type: 'user',
       },
     })
@@ -75,9 +77,9 @@ async function getAnswer(textarea) {
       id: messages.value.length + 1,
       content: '<p>Стрекочут кузнечики...</p>',
       user: {
-        name: 'Суфлёр Wikibot',
+        name: botName,
         id: 0,
-        imageUrl: '',
+        imageUrl: botImageUrl,
         type: 'user',
       },
     })

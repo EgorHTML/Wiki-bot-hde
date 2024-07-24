@@ -62,10 +62,7 @@ function copy() {
       <div
         class="ticket-conversation__message-image"
         :class="`ticket-conversation__message-image_${user.type}`"
-        style="
-          background-image: url('/ru/file/image/33_2022$1feb2716da46370167f6e94f7f9b7fa880f19533/height/60');
-          cursor: pointer;
-        "
+        :style="{ 'background-image': `url(${user.imageUrl})` }"
       ></div>
     </div>
     <div class="ticket-conversation__message-block">
