@@ -9,9 +9,10 @@ const editorConfig = {
   plugins: [Essentials, Mention, Paragraph],
   toolbar: ['|'],
 }
+const editor = ref()
 
 function submit() {
-  emit('submit', editorData.value)
+  emit('submit', editor.value.instance.data.get())
   editorData.value = ''
 }
 </script>
@@ -19,6 +20,7 @@ function submit() {
 <template>
   <div class="ticket-detail__editor" @keydown.enter="submit">
     <ckeditor
+      ref="editor"
       v-model="editorData"
       :editor="ClassicEditor"
       :config="editorConfig"
