@@ -87,18 +87,14 @@ function copy() {
       <div class="ticket-conversation__actions">
         <span
           class="ticket-conversation__actions-btn ticket-conversation__show-on-hover"
-          ><span
-            title="Другие действия"
-            class="ticket-conversation__actions_button"
+        >
+          <button
+            title="Скопировать сообщение"
+            class="ticket-conversation__actions-create-ticket-from-post-button"
+            @click="copy"
           >
-            <button
-              title="Скопировать сообщение"
-              class="ticket-conversation__actions-create-ticket-from-post-button"
-              @click="copy"
-            >
-              <i class="hde-ticket"></i>
-            </button>
-          </span>
+            <i class="hde-ticket"></i>
+          </button>
         </span>
       </div>
     </div>

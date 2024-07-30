@@ -8,3 +8,15 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.ticket-detail__watching {
+  position: relative;
+}
+
+.ticket-detail__watching-users {
+  z-index: 20;
+  position: absolute;
+  margin: 5px 15px;
+}
+</style>

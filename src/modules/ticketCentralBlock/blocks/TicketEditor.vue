@@ -8,17 +8,19 @@ const editorData = ref('')
 const editorConfig = {
   plugins: [Essentials, Mention, Paragraph],
   toolbar: ['|'],
+  placeholder: 'Задать вопрос Wikibot',
 }
 const editor = ref()
 
 function submit() {
   emit('submit', editor.value.instance.data.get())
+  editor.value.instance.data.set('')
   editorData.value = ''
 }
 </script>
 
 <template>
-  <div class="ticket-detail__editor" @keydown.enter="submit">
+  <div class="ticket-detail__editor" @keydown.enter.prevent="submit">
     <ckeditor
       ref="editor"
       v-model="editorData"
@@ -36,6 +38,9 @@ function submit() {
 </template>
 
 <style>
+.ck.ck-editor__editable > .ck-placeholder::before {
+  color: #606266 !important;
+}
 .ck-body-wrapper {
   display: none;
 }
