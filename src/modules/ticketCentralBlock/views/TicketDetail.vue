@@ -5,7 +5,7 @@ import TicketEditor from '../blocks/TicketEditor.vue'
 import LoadingBlock from '../blocks/LoadingBlock.vue'
 import { provide, ref } from 'vue'
 import HDE from '../../../plugin'
-import { getCurrentUser } from '../../wiki_chat/utils/user'
+import { getCurrentUser } from '../../../utils/user.js'
 import asc from '../../../services/wikibot/asc'
 import linkifyHtml from 'linkify-html'
 
