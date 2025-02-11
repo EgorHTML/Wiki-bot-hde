@@ -6,9 +6,8 @@ import LoadingBlock from '../blocks/LoadingBlock.vue'
 import { provide, ref } from 'vue'
 import HDE from '../../../plugin'
 import { getCurrentUser } from '../../../utils/user.js'
-import asc from '../../../services/wikibot/asc'
 import linkifyHtml from 'linkify-html'
-import { getAsyncAnswer } from '../../../services/wikibot/answer.js'
+import Wikibot from '../../../services/wikibot/WikiBotService.js'
 
 const ticketValues = ref(HDE.getState().ticketValues)
 const botName = 'Суфлёр Wikibot'
@@ -56,35 +55,22 @@ async function submit(textarea) {
 }
 
 async function getAnswer(textarea) {
-  const dataAsc = await asc(textarea)
+  const dataAsc = await Wikibot.asc(textarea)
 
   if (dataAsc?.error) throw new Error(dataAsc.error)
 
-  await getAsyncAnswer(textarea)
-    .then((dataAnswer) => {
-      if (dataAnswer.answer) {
-        addMessage({
-          id: messages.value.length + 1,
-          content: dataAnswer.answer,
-          user: {
-            name: botName,
-            id: 0,
-            imageUrl: botImageUrl,
-            type: 'user',
-          },
-        })
-      } else {
-        addMessage({
-          id: messages.value.length + 1,
-          content: '<p>Стрекочут кузнечики...</p>',
-          user: {
-            name: botName,
-            id: 0,
-            imageUrl: botImageUrl,
-            type: 'user',
-          },
-        })
-      }
+  await Wikibot.getAnswerAsync(textarea)
+    .then((answer) => {
+      addMessage({
+        id: messages.value.length + 1,
+        content: answer,
+        user: {
+          name: botName,
+          id: 0,
+          imageUrl: botImageUrl,
+          type: 'user',
+        },
+      })
     })
     .catch((error) => {
       addMessage({

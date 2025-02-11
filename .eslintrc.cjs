@@ -13,4 +13,7 @@ module.exports = {
     ],
     'vue/no-v-html': 'off',
   },
+  parserOptions: {
+    ecmaVersion: 2022,
+  },
 }
