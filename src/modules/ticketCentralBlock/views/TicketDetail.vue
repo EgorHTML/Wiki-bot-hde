@@ -8,6 +8,7 @@ import HDE from '../../../plugin'
 import { getCurrentUser } from '../../../utils/user.js'
 import asc from '../../../services/wikibot/asc'
 import linkifyHtml from 'linkify-html'
+import { getAsyncAnswer } from '../../../services/wikibot/answer.js'
 
 const ticketValues = ref(HDE.getState().ticketValues)
 const botName = 'Суфлёр Wikibot'
@@ -55,36 +56,48 @@ async function submit(textarea) {
 }
 
 async function getAnswer(textarea) {
-  const dataAnswer = (await asc(textarea)).data
+  const dataAsc = await asc(textarea)
 
-  if (!dataAnswer)
-    throw new Error('Извините, по техническим причинам я не могу помочь Вам (')
+  if (dataAsc?.error) throw new Error(dataAsc.error)
 
-  if (dataAnswer?.error) throw new Error(dataAnswer.error)
-
-  if (dataAnswer.answer) {
-    addMessage({
-      id: messages.value.length + 1,
-      content: dataAnswer.answer,
-      user: {
-        name: botName,
-        id: 0,
-        imageUrl: botImageUrl,
-        type: 'user',
-      },
+  await getAsyncAnswer(textarea)
+    .then((dataAnswer) => {
+      if (dataAnswer.answer) {
+        addMessage({
+          id: messages.value.length + 1,
+          content: dataAnswer.answer,
+          user: {
+            name: botName,
+            id: 0,
+            imageUrl: botImageUrl,
+            type: 'user',
+          },
+        })
+      } else {
+        addMessage({
+          id: messages.value.length + 1,
+          content: '<p>Стрекочут кузнечики...</p>',
+          user: {
+            name: botName,
+            id: 0,
+            imageUrl: botImageUrl,
+            type: 'user',
+          },
+        })
+      }
     })
-  } else {
-    addMessage({
-      id: messages.value.length + 1,
-      content: '<p>Стрекочут кузнечики...</p>',
-      user: {
-        name: botName,
-        id: 0,
-        imageUrl: botImageUrl,
-        type: 'user',
-      },
+    .catch((error) => {
+      addMessage({
+        id: messages.value.length + 1,
+        content: error,
+        user: {
+          name: botName,
+          id: 0,
+          imageUrl: botImageUrl,
+          type: 'user',
+        },
+      })
     })
-  }
 }
 
 function setLoading(flag) {
