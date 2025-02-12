@@ -15,7 +15,7 @@
 }
 
 .ticket-detail__watching-users {
-  z-index: 20;
+  z-index: 2025;
   position: absolute;
   margin: 5px 15px;
 }

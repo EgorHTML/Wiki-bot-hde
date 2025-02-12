@@ -6,6 +6,7 @@ import LoadingBlock from '../blocks/LoadingBlock.vue'
 import { provide, ref } from 'vue'
 import HDE from '../../../plugin'
 import { getCurrentUser } from '../../../utils/user.js'
+import { getRandomHexadecimal } from '../../../utils/random.js'
 import linkifyHtml from 'linkify-html'
 import Wikibot from '../../../services/wikibot/WikiBotService.js'
 
@@ -55,14 +56,21 @@ async function submit(textarea) {
 }
 
 async function getAnswer(textarea) {
-  const dataAsc = await Wikibot.asc(textarea)
+  const ticketId = String(HDE.getState().ticketId)
+  const messageId = String(messages.value.length + 1)
+  const randomHEX = getRandomHexadecimal()
 
-  if (dataAsc?.error) throw new Error(dataAsc.error)
+  const requestId = ticketId + messageId + randomHEX
 
-  await Wikibot.getAnswerAsync(textarea)
+  const dataAsc = (await Wikibot.asc(textarea, ticketId, requestId))?.data
+
+  if (typeof dataAsc === 'object' && 'error' in dataAsc)
+    throw new Error(dataAsc.error)
+
+  await Wikibot.getAnswerAsync(requestId)
     .then((answer) => {
       addMessage({
-        id: messages.value.length + 1,
+        id: messageId,
         content: answer,
         user: {
           name: botName,
@@ -74,7 +82,7 @@ async function getAnswer(textarea) {
     })
     .catch((error) => {
       addMessage({
-        id: messages.value.length + 1,
+        id: messageId,
         content: error,
         user: {
           name: botName,
