@@ -1,14 +1,16 @@
+<!-- eslint-disable no-unused-vars -->
 <script setup>
 import TicketConversationTitleBlock from '../blocks/TicketConversationTitleBlock.vue'
 import TicketConversationMessagesBlock from '../blocks/TicketConversationMessagesBlock.vue'
 import TicketEditor from '../blocks/TicketEditor.vue'
 import LoadingBlock from '../blocks/LoadingBlock.vue'
-import { provide, ref } from 'vue'
+import { provide, ref, watchEffect } from 'vue'
 import HDE from '../../../plugin'
 import { getCurrentUser } from '../../../utils/user.js'
 import { getRandomHexadecimal } from '../../../utils/random.js'
 import linkifyHtml from 'linkify-html'
 import Wikibot from '../../../services/wikibot/WikiBotService.js'
+import { useQueue } from '../../../utils/Queue.js'
 
 const ticketValues = ref(HDE.getState().ticketValues)
 const botName = 'Суфлёр Wikibot'
@@ -21,6 +23,12 @@ HDE.watch('ticketValues', (to) => {
 const messages = ref([])
 const currentUser = getCurrentUser()
 const loadingAnswer = ref(false)
+const queue = useQueue()
+
+watchEffect(() => {
+  setLoading(!queue.isEmpty())
+  queue.execute()
+})
 
 provide('ticketValues', ticketValues)
 
@@ -36,9 +44,8 @@ async function submit(textarea) {
         type: 'staff',
       },
     })
-    setLoading(true)
-    await getAnswer(textarea)
-    setLoading(false)
+    queue.enqueue(getAnswer.bind(null, textarea))
+    // await getAnswer(textarea)
   } catch (error) {
     addMessage({
       id: messages.value.length + 1,
@@ -50,8 +57,6 @@ async function submit(textarea) {
         type: 'user',
       },
     })
-  } finally {
-    setLoading(false)
   }
 }
 
