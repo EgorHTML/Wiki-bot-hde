@@ -27,6 +27,7 @@ const queue = useQueue()
 
 watchEffect(() => {
   setLoading(!queue.isEmpty())
+
   queue.execute()
 })
 

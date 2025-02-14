@@ -13,10 +13,7 @@ export function useQueue() {
 
   const dequeue = () => {
     if (queue.value.length > 0) {
-      console.log([...queue.value], 'do')
-
       dequeuedItem.value = queue.value.shift()
-      console.log([...queue.value], 'после')
     }
   }
 
@@ -42,20 +39,22 @@ export function useQueue() {
 
   const execute = async () => {
     if (running.value) return
-
     running.value = true
 
     const task = peek()
-    console.log(task)
 
     if (task) {
       await task()
       dequeue()
+      running.value = false
       execute()
+    } else {
+      running.value = false
     }
   }
 
   return {
+    running,
     execute,
     queue,
     dequeuedItem,
